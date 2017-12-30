@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 import requests
 import urllib.request
 import bs4
@@ -13,7 +11,8 @@ def create_path_if(path):
         os.makedirs(dir)
 
 def main():
-    adresse = ' '.join(sys.argv[1:]).split('//')[1]
+    print("enter the adresses of the mange :")
+    adresse = input().split('//')[1]
     if adresse[-1] == '/' :
         adresse = adresse[:-1]
     mangaN = adresse.split('/')[-1] + '/'
@@ -23,8 +22,8 @@ def main():
     mangaS = bs4.BeautifulSoup(res.text, "lxml")
     elems = mangaS.select('dd[class="chlist"] a[href]')
 
-    volume = len(mangaS.select('dt[class="chtitle"]'))
-    if volume == 1 :
+    volume = elems[0]["href"].split('/')[-2]
+    if (volume + '/') == mangaN :
         num = -2
     else :
         num = -3
